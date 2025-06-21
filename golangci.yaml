@@ -1,0 +1,10 @@
+run:
+  allow-parallel-runners: true
+linters:
+  disable-all: true
+  enable:
+    - goimports
+    - gofmt
+    - govet
+    - errcheck
+    - staticcheck
