@@ -2,7 +2,7 @@ SOURCE_CODE=tis-100
 BINARY_NAME=tis-100
 BUILD_DIR=bin
 
-.PHONY: help lint test pre-commit clean build run
+.PHONY: help lint test bench pre-commit clean build run
 
 .DEFAULT_GOAL := help
 
@@ -12,6 +12,7 @@ help:
 	@echo "  help              					Display this help message"
 	@echo "  lint              					Run linters"
 	@echo "  test              					Run tests"
+	@echo "  bench											Run benchmarks"
 	@echo "  pre-commit        					Run pre-commit checks"
 	@echo "  clean             					Remove build artifacts"
 	@echo "  build             					Build the application"
@@ -24,6 +25,9 @@ lint:
 
 test:
 	go test -race -timeout 30s ./...
+
+bench:
+	go test -bench=. -benchmem ./...
 
 pre-commit:
 	pre-commit run --all-files --hook-stage pre-push
