@@ -1,0 +1,58 @@
+repos:
+  # Basic hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-merge-conflict
+        name: Check merge conflict
+      - id: trailing-whitespace
+        name: Fix trailing whitespace
+      - id: end-of-file-fixer
+        name: Fix end of files
+      - id: detect-private-key
+        name: Detect private keys
+      - id: check-json
+        name: Check JSON
+      - id: check-toml
+        name: Check TOML
+      - id: check-yaml
+        name: Check YAML
+
+  # Golang hooks
+  - repo: local
+    hooks:
+      # go mod tidy
+      - id: gomod
+        name: go mod tidy
+        entry: go mod tidy
+        language: system
+        types: [go]
+        pass_filenames: false
+        stages: [pre-commit]
+
+      # Formatter
+      - id: gofmt
+        name: gofmt Formatter
+        entry: gofmt -s -w .
+        language: system
+        types: [go]
+        pass_filenames: false
+        stages: [pre-commit]
+
+      # Linter
+      - id: golangci
+        name: GolangCI Lint
+        entry: golangci-lint run
+        language: system
+        types: [go]
+        pass_filenames: false
+        stages: [pre-commit]
+
+      # Tests
+      - id: test
+        name: Tests
+        entry: go test -race -timeout 30s ./...
+        language: system
+        types: [go]
+        pass_filenames: false
+        stages: [pre-commit]
