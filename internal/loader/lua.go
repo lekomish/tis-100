@@ -93,7 +93,7 @@ func fetchDescription(lState *lua.LState) ([]string, error) {
 
 // fetchStreams retrieves a list of stream definitions by calling `GetStreams` in Lua.
 // Each stream must be a 4-element table containing stream metadata and values.
-func fetchStreams(lState *lua.LState) ([]model.Stream, error) {
+func fetchStreams(lState *lua.LState) ([]*model.Stream, error) {
 	val, err := runLuaFunction(lState, "GetStreams")
 	if err != nil {
 		return nil, err
@@ -104,7 +104,7 @@ func fetchStreams(lState *lua.LState) ([]model.Stream, error) {
 		return nil, err
 	}
 
-	var streams []model.Stream
+	var streams []*model.Stream
 	var iterErr error
 	// iterate over each stream entry
 	streamsTable.ForEach(func(_, streamVal lua.LValue) {
@@ -177,7 +177,7 @@ func fetchStreams(lState *lua.LState) ([]model.Stream, error) {
 			return
 		}
 
-		streams = append(streams, model.Stream{
+		streams = append(streams, &model.Stream{
 			Type:     model.StreamType(typeNum),
 			Name:     name,
 			Position: uint8(posNum),

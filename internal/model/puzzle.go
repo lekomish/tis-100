@@ -4,6 +4,6 @@ package model
 type Puzzle struct {
 	Title       string
 	Description []string
-	Streams     []Stream
+	Streams     []*Stream
 	Layout      []NodeType
 }

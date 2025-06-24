@@ -29,7 +29,7 @@ func TestLoadPuzzleWithCorrectScript(t *testing.T) {
 	expectedPuzzle := model.Puzzle{
 		Title:       "TEST",
 		Description: []string{"TEST LINE 1", "TEST LINE 2"},
-		Streams: []model.Stream{
+		Streams: []*model.Stream{
 			{
 				Type:     model.INPUT,
 				Name:     "IN.TEST",
